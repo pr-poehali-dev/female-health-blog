@@ -46,6 +46,7 @@ const Index = () => {
       author: "Др. Анна Петрова",
       date: "15 янв 2024",
       readTime: "8 мин",
+      image: "https://cdn.poehali.dev/files/5f14f906-dc89-4c72-aef7-c0b6c8d3f55f.png",
       slug: "/nutrition/pravilnoe-pitanie-dlya-zhenshchin-posle-30",
     },
     {
@@ -58,6 +59,7 @@ const Index = () => {
       author: "Др. Мария Сидорова",
       date: "12 янв 2024",
       readTime: "7 мин",
+      image: "https://cdn.poehali.dev/files/58678ca4-0807-4c2e-8d59-5c2fd84f84ee.png",
     },
     {
       id: 3,
@@ -69,6 +71,7 @@ const Index = () => {
       author: "Тренер Елена Козлова",
       date: "10 янв 2024",
       readTime: "6 мин",
+      image: "https://cdn.poehali.dev/files/2e05c48e-851c-47ef-823c-0f1bfb0283f4.png",
     },
     {
       id: 4,
@@ -80,6 +83,7 @@ const Index = () => {
       author: "Др. Ирина Волкова",
       date: "8 янв 2024",
       readTime: "8 мин",
+      image: "https://cdn.poehali.dev/files/58678ca4-0807-4c2e-8d59-5c2fd84f84ee.png",
     },
   ];
 
@@ -361,6 +365,13 @@ const Index = () => {
                     className="block"
                   >
                     <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
+                      <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
                       <CardHeader>
                         <div className="flex justify-between items-start mb-2">
                           <Badge variant="secondary" className="text-xs">
@@ -412,6 +423,13 @@ const Index = () => {
                           key={article.id}
                           className="hover:shadow-lg transition-shadow cursor-pointer"
                         >
+                          <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
+                            <img
+                              src={article.image}
+                              alt={article.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          </div>
                           <CardHeader>
                             <div className="flex justify-between items-start mb-2">
                               <Badge variant="secondary" className="text-xs">
