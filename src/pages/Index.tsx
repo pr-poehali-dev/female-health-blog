@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "@/components/home/Header";
+import Header from "@/components/ui/Header";
 import HeroSection from "@/components/home/HeroSection";
 import SearchSection from "@/components/home/SearchSection";
 import AboutSection from "@/components/home/AboutSection";

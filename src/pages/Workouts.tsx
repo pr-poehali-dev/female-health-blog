@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
+import Header from "@/components/ui/Header";
 
 const Workouts = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -86,50 +87,7 @@ const Workouts = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-3">
-                <Icon
-                  name="Heart"
-                  className="h-8 w-8 text-medical-blue"
-                />
-                <h1 className="text-2xl font-sans font-bold text-gray-900">
-                  Женское Здоровье
-                </h1>
-              </Link>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <Link
-                to="/nutrition"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
-              >
-                Питание
-              </Link>
-              <Link
-                to="/workouts"
-                className="text-medical-blue font-medium border-b-2 border-medical-blue pb-1"
-              >
-                Тренировки
-              </Link>
-              <Link
-                to="/hormones"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
-              >
-                Гормоны
-              </Link>
-              <Link
-                to="/doctor-advice"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
-              >
-                Советы врача
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-purple-500 to-pink-600 text-white py-16">

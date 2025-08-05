@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import Icon from "@/components/ui/icon";
 import { updateSEO } from "@/lib/seo";
+import Header from "@/components/ui/Header";
 
 const NutritionArticle = () => {
   const articleId = "nutrition-article-1"; // Уникальный ID статьи
@@ -120,56 +121,7 @@ const NutritionArticle = () => {
   }, []);
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-3 sm:py-4">
-            <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
-                <Icon
-                  name="Heart"
-                  className="h-6 w-6 sm:h-8 sm:w-8 text-medical-blue"
-                />
-                <h1 className="text-lg sm:text-xl lg:text-2xl font-sans font-bold text-gray-900">
-                  Женское Здоровье
-                </h1>
-              </Link>
-            </div>
-            <nav className="hidden sm:flex space-x-4 lg:space-x-8">
-              <Link
-                to="/nutrition"
-                className="text-medical-blue font-medium border-b-2 border-medical-blue pb-1 text-sm lg:text-base"
-              >
-                Питание
-              </Link>
-              <Link
-                to="/workouts"
-                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
-              >
-                Тренировки
-              </Link>
-              <Link
-                to="/hormones"
-                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
-              >
-                Гормоны
-              </Link>
-              <Link
-                to="/doctor-advice"
-                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
-              >
-                Советы врача
-              </Link>
-            </nav>
-            {/* Мобильное меню */}
-            <div className="sm:hidden">
-              <button className="text-gray-700 hover:text-medical-blue">
-                <Icon name="Menu" className="h-6 w-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Article Header */}
       <section className="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-8 sm:py-12">

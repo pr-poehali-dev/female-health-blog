@@ -30,10 +30,13 @@ const HeroSection = () => {
           </div>
           <div className="order-first md:order-last">
             <img
-              src="https://cdn.poehali.dev/files/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg"
+              src="/img/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg"
               alt="Здоровая женщина"
               className="rounded-lg shadow-2xl w-full h-48 sm:h-64 md:h-auto object-cover md:object-contain"
               loading="lazy"
+              onError={(e) => {
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+              }}
             />
           </div>
         </div>
