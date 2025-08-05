@@ -261,7 +261,7 @@ const Index = () => {
               </div>
               <div className="hidden md:block">
                 <img
-                  src="/img/30274144-9fcd-4808-a6f6-8ba0e0bff543.jpg"
+                  src="https://cdn.poehali.dev/files/0843b9b7-2fbb-4f32-92b0-cbfb46985715.png"
                   alt="Здоровое питание"
                   className="rounded-lg shadow-lg"
                 />
