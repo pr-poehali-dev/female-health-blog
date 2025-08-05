@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -115,30 +116,30 @@ const Index = () => {
               </div>
             </div>
             <nav className="hidden md:flex space-x-8">
-              <a
-                href="#nutrition"
+              <Link
+                to="/nutrition"
                 className="text-gray-700 hover:text-medical-blue transition-colors"
               >
                 Питание
-              </a>
-              <a
-                href="#workouts"
+              </Link>
+              <Link
+                to="/workouts"
                 className="text-gray-700 hover:text-medical-blue transition-colors"
               >
                 Тренировки
-              </a>
-              <a
-                href="#hormones"
+              </Link>
+              <Link
+                to="/hormones"
                 className="text-gray-700 hover:text-medical-blue transition-colors"
               >
                 Гормоны
-              </a>
-              <a
-                href="#doctor-advice"
+              </Link>
+              <Link
+                to="/doctor-advice"
                 className="text-gray-700 hover:text-medical-blue transition-colors"
               >
                 Советы врача
-              </a>
+              </Link>
             </nav>
           </div>
         </div>
