@@ -36,13 +36,13 @@ const ArticlesSection: React.FC<ArticlesSectionProps> = ({
     <section className="py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Tabs defaultValue="all" className="w-full">
-          <div className="overflow-x-auto">
-            <TabsList className="grid w-full grid-cols-5 min-w-max">
-              <TabsTrigger value="all" className="text-xs sm:text-sm whitespace-nowrap">Все статьи</TabsTrigger>
-              <TabsTrigger value="питание" className="text-xs sm:text-sm whitespace-nowrap">Питание</TabsTrigger>
-              <TabsTrigger value="тренировки" className="text-xs sm:text-sm whitespace-nowrap">Тренировки</TabsTrigger>
-              <TabsTrigger value="гормоны" className="text-xs sm:text-sm whitespace-nowrap">Гормоны</TabsTrigger>
-              <TabsTrigger value="советы врача" className="text-xs sm:text-sm whitespace-nowrap">Советы врача</TabsTrigger>
+          <div className="overflow-x-auto pb-2">
+            <TabsList className="grid w-full grid-cols-5 min-w-[640px] h-auto">
+              <TabsTrigger value="all" className="text-xs sm:text-sm whitespace-nowrap px-2 py-3">Все статьи</TabsTrigger>
+              <TabsTrigger value="питание" className="text-xs sm:text-sm whitespace-nowrap px-2 py-3">🥗 Питание</TabsTrigger>
+              <TabsTrigger value="тренировки" className="text-xs sm:text-sm whitespace-nowrap px-2 py-3">💪 Тренировки</TabsTrigger>
+              <TabsTrigger value="гормоны" className="text-xs sm:text-sm whitespace-nowrap px-2 py-3">⚖️ Гормоны</TabsTrigger>
+              <TabsTrigger value="советы врача" className="text-xs sm:text-sm whitespace-nowrap px-1 py-3">👩‍⚕️ Советы</TabsTrigger>
             </TabsList>
           </div>
 
@@ -61,6 +61,9 @@ const ArticlesSection: React.FC<ArticlesSectionProps> = ({
                         alt={article.title}
                         className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                         loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.src = 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+                        }}
                       />
                     </div>
                     <CardHeader className="p-4 sm:p-6">
@@ -106,21 +109,27 @@ const ArticlesSection: React.FC<ArticlesSectionProps> = ({
           {["питание", "тренировки", "гормоны", "советы врача"].map(
             (category) => (
               <TabsContent key={category} value={category} className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {articles
                     .filter((article) => article.category === category)
                     .map((article) => (
-                      <Card
+                      <Link
                         key={article.id}
-                        className="hover:shadow-lg transition-shadow cursor-pointer"
+                        to={article.slug || "#"}
+                        className="block"
                       >
-                        <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
-                          <img
-                            src={article.image}
-                            alt={article.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
+                        <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer h-full active:scale-[0.98] touch-manipulation">
+                          <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
+                            <img
+                              src={article.image}
+                              alt={article.title}
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                              loading="lazy"
+                              onError={(e) => {
+                                e.currentTarget.src = 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+                              }}
+                            />
+                          </div>
                         <CardHeader>
                           <div className="flex justify-between items-start mb-2">
                             <Badge variant="secondary" className="text-xs">
@@ -154,7 +163,8 @@ const ArticlesSection: React.FC<ArticlesSectionProps> = ({
                             <span>{article.date}</span>
                           </div>
                         </CardContent>
-                      </Card>
+                        </Card>
+                      </Link>
                     ))}
                 </div>
               </TabsContent>

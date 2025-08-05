@@ -28,11 +28,11 @@ const HeroSection = () => {
               </Button>
             </div>
           </div>
-          <div className="hidden md:block">
+          <div className="order-first md:order-last">
             <img
-              src="/img/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg"
+              src="https://cdn.poehali.dev/files/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg"
               alt="Здоровая женщина"
-              className="rounded-lg shadow-2xl w-full h-auto"
+              className="rounded-lg shadow-2xl w-full h-48 sm:h-64 md:h-auto object-cover md:object-contain"
               loading="lazy"
             />
           </div>
