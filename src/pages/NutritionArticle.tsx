@@ -1,11 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import Icon from "@/components/ui/icon";
 import { updateSEO } from "@/lib/seo";
 
 const NutritionArticle = () => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(24);
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      name: "Мария К.",
+      date: "2 дня назад",
+      text: "Отличная статья! Особенно полезны рекомендации по белкам. Уже начала включать больше рыбы в рацион."
+    },
+    {
+      id: 2,
+      name: "Анна С.",
+      date: "1 неделю назад", 
+      text: "Спасибо за такую подробную информацию. Теперь понимаю, почему после 30 стало сложнее поддерживать энергию."
+    }
+  ]);
+  const [newComment, setNewComment] = useState({ name: "", text: "" });
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+  };
+
+  const handleAddComment = () => {
+    if (newComment.name.trim() && newComment.text.trim()) {
+      const comment = {
+        id: comments.length + 1,
+        name: newComment.name,
+        date: "только что",
+        text: newComment.text
+      };
+      setComments([comment, ...comments]);
+      setNewComment({ name: "", text: "" });
+    }
+  };
+
   useEffect(() => {
     updateSEO(
       "Правильное питание для женщин после 30 лет — что есть для энергии, гормонов и баланса",
@@ -234,6 +272,69 @@ const NutritionArticle = () => {
             <p className="text-lg">
               Питание после 30 лет — не про диеты и жёсткие запреты. Это про поддержку: своей энергии, гормонов, иммунитета и настроения. Выстраивая здоровый рацион, женщина делает вклад не только в свой внешний вид, но и в качество жизни в целом.
             </p>
+          </div>
+        </div>
+
+        {/* Like and Comments Section */}
+        <div className="mt-12 bg-white rounded-lg shadow-sm p-8">
+          {/* Like Button */}
+          <div className="flex items-center gap-4 pb-6 border-b border-gray-200">
+            <Button
+              variant={isLiked ? "default" : "outline"}
+              onClick={handleLike}
+              className={`flex items-center gap-2 ${isLiked ? 'bg-red-500 hover:bg-red-600 text-white' : 'hover:bg-red-50 hover:text-red-600 hover:border-red-200'}`}
+            >
+              <Icon name={isLiked ? "Heart" : "Heart"} className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
+              {isLiked ? 'Нравится' : 'Нравится'}
+            </Button>
+            <span className="text-gray-600">{likeCount} человек оценили эту статью</span>
+          </div>
+
+          {/* Comments Section */}
+          <div className="mt-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">
+              Комментарии ({comments.length})
+            </h3>
+            
+            {/* Add Comment Form */}
+            <div className="bg-gray-50 rounded-lg p-6 mb-6">
+              <h4 className="font-medium text-gray-900 mb-4">Оставить комментарий</h4>
+              <div className="space-y-4">
+                <Input
+                  placeholder="Ваше имя"
+                  value={newComment.name}
+                  onChange={(e) => setNewComment({...newComment, name: e.target.value})}
+                  className="bg-white"
+                />
+                <Textarea
+                  placeholder="Поделитесь своим мнением о статье..."
+                  value={newComment.text}
+                  onChange={(e) => setNewComment({...newComment, text: e.target.value})}
+                  className="bg-white min-h-[100px]"
+                />
+                <Button 
+                  onClick={handleAddComment}
+                  disabled={!newComment.name.trim() || !newComment.text.trim()}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  <Icon name="Send" className="h-4 w-4 mr-2" />
+                  Отправить комментарий
+                </Button>
+              </div>
+            </div>
+
+            {/* Comments List */}
+            <div className="space-y-6">
+              {comments.map((comment) => (
+                <div key={comment.id} className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h5 className="font-medium text-gray-900">{comment.name}</h5>
+                    <span className="text-sm text-gray-500">{comment.date}</span>
+                  </div>
+                  <p className="text-gray-700">{comment.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
