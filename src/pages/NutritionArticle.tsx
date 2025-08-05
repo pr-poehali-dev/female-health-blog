@@ -96,11 +96,12 @@ const NutritionArticle = () => {
       {/* Article Content */}
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-sm p-8 prose prose-lg max-w-none">
+          {/* Hero Cover Image */}
           <div className="mb-8">
             <img
-              src="https://cdn.poehali.dev/files/58678ca4-0807-4c2e-8d59-5c2fd84f84ee.png"
-              alt="Правильное питание для женщин после 30"
-              className="w-full h-64 object-cover rounded-lg"
+              src="https://cdn.poehali.dev/files/5f14f906-dc89-4c72-aef7-c0b6c8d3f55f.png"
+              alt="Сбалансированное здоровое питание - тарелка с лососем, киноа, брокколи и шпинатом"
+              className="w-full max-w-2xl mx-auto block rounded-lg shadow-lg"
             />
           </div>
 
