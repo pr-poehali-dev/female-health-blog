@@ -117,7 +117,7 @@ const NutritionArticle = () => {
               <img
                 src="https://cdn.poehali.dev/files/69812513-7b8a-4c74-993c-898ca801fded.jpg"
                 alt="Здоровый завтрак с лососем, яйцом и овощами"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full max-w-md mx-auto block rounded-lg shadow-md"
               />
             </div>
             
@@ -152,7 +152,7 @@ const NutritionArticle = () => {
               <img
                 src="https://cdn.poehali.dev/files/9fa2e523-bf07-4751-991d-a066048c2ca6.png"
                 alt="Лосось с киноа и шпинатом - источник здоровых жиров"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full max-w-lg mx-auto block rounded-lg shadow-md"
               />
             </div>
             
@@ -209,7 +209,7 @@ const NutritionArticle = () => {
               <img
                 src="https://cdn.poehali.dev/files/79966255-508c-4b76-a67d-b73bf6ba49ff.jpg"
                 alt="Пример здорового питания на день - четыре тарелки с разными блюдами"
-                className="w-full h-80 object-cover rounded-lg shadow-md"
+                className="w-full max-w-2xl mx-auto block rounded-lg shadow-md"
               />
             </div>
             
