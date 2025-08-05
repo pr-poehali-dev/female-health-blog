@@ -24,7 +24,7 @@ const Nutrition = () => {
       author: "Др. Анна Петрова",
       date: "15 янв 2024",
       readTime: "8 мин",
-      image: "https://cdn.poehali.dev/files/58678ca4-0807-4c2e-8d59-5c2fd84f84ee.png",
+      image: "https://cdn.poehali.dev/files/5f14f906-dc89-4c72-aef7-c0b6c8d3f55f.png",
       slug: "/nutrition/pravilnoe-pitanie-dlya-zhenshchin-posle-30"
     },
     {
