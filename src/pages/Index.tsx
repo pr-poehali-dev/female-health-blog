@@ -5,11 +5,40 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  
+  // Calendar state
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [healthEvents, setHealthEvents] = useState<{[key: string]: string[]}>({});
+  const [newEvent, setNewEvent] = useState('');
+  
+  // Symptom diary state
+  const [symptomEntries, setSymptomEntries] = useState<Array<{
+    id: number;
+    date: string;
+    symptoms: string[];
+    severity: number;
+    notes: string;
+  }>>([]);
+  const [currentSymptoms, setCurrentSymptoms] = useState<string[]>([]);
+  const [severity, setSeverity] = useState(5);
+  const [notes, setNotes] = useState('');
+  
+  // Calculator states
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [age, setAge] = useState('');
+  const [waterIntake, setWaterIntake] = useState('');
+  const [calculatorResults, setCalculatorResults] = useState<{[key: string]: any}>({});
 
   const symptoms = [
     'усталость', 'головная боль', 'бессонница', 'стресс', 'депрессия',
@@ -73,6 +102,88 @@ const Index = () => {
         ? prev.filter(t => t !== tag)
         : [...prev, tag]
     );
+  };
+
+  // Calendar functions
+  const addHealthEvent = () => {
+    if (newEvent.trim() && selectedDate) {
+      const dateStr = selectedDate.toDateString();
+      setHealthEvents(prev => ({
+        ...prev,
+        [dateStr]: [...(prev[dateStr] || []), newEvent]
+      }));
+      setNewEvent('');
+    }
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('ru-RU', { 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric' 
+    });
+  };
+
+  // Symptom diary functions
+  const addSymptomEntry = () => {
+    if (currentSymptoms.length > 0) {
+      const newEntry = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString('ru-RU'),
+        symptoms: [...currentSymptoms],
+        severity,
+        notes
+      };
+      setSymptomEntries(prev => [newEntry, ...prev]);
+      setCurrentSymptoms([]);
+      setSeverity(5);
+      setNotes('');
+    }
+  };
+
+  const toggleSymptom = (symptom: string) => {
+    setCurrentSymptoms(prev => 
+      prev.includes(symptom) 
+        ? prev.filter(s => s !== symptom)
+        : [...prev, symptom]
+    );
+  };
+
+  // Calculator functions
+  const calculateBMI = () => {
+    if (height && weight) {
+      const heightInM = parseFloat(height) / 100;
+      const weightInKg = parseFloat(weight);
+      const bmi = weightInKg / (heightInM * heightInM);
+      return bmi.toFixed(1);
+    }
+    return null;
+  };
+
+  const getBMICategory = (bmi: number) => {
+    if (bmi < 18.5) return { category: 'Недостаток веса', color: 'text-blue-600' };
+    if (bmi < 25) return { category: 'Нормальный вес', color: 'text-green-600' };
+    if (bmi < 30) return { category: 'Избыточный вес', color: 'text-yellow-600' };
+    return { category: 'Ожирение', color: 'text-red-600' };
+  };
+
+  const calculateWaterIntake = () => {
+    if (weight) {
+      const intake = parseFloat(weight) * 35; // 35ml per kg
+      return (intake / 1000).toFixed(1); // convert to liters
+    }
+    return null;
+  };
+
+  const calculateResults = () => {
+    const bmi = calculateBMI();
+    const water = calculateWaterIntake();
+    
+    setCalculatorResults({
+      bmi: bmi ? parseFloat(bmi) : null,
+      water: water ? parseFloat(water) : null,
+      bmiCategory: bmi ? getBMICategory(parseFloat(bmi)) : null
+    });
   };
 
   return (
@@ -169,6 +280,243 @@ const Index = () => {
                 {symptom}
               </Badge>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Health Tools Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-sans font-bold text-gray-900 mb-4">
+              Инструменты здоровья
+            </h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Интерактивные инструменты для отслеживания и контроля вашего здоровья
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Health Calendar */}
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="Calendar" className="h-5 w-5 text-primary" />
+                  Календарь здоровья
+                </CardTitle>
+                <CardDescription>
+                  Отмечайте важные события, визиты к врачу и состояние здоровья
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-full justify-start text-left font-normal">
+                      <Icon name="Calendar" className="mr-2 h-4 w-4" />
+                      {selectedDate ? formatDate(selectedDate) : "Выберите дату"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={(date) => date && setSelectedDate(date)}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="health-event">Добавить событие</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="health-event"
+                      placeholder="Визит к врачу, анализы..."
+                      value={newEvent}
+                      onChange={(e) => setNewEvent(e.target.value)}
+                    />
+                    <Button onClick={addHealthEvent} size="sm">
+                      <Icon name="Plus" className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {selectedDate && healthEvents[selectedDate.toDateString()] && (
+                  <div className="space-y-2">
+                    <Label>События на {formatDate(selectedDate)}</Label>
+                    <div className="space-y-1">
+                      {healthEvents[selectedDate.toDateString()].map((event, index) => (
+                        <div key={index} className="flex items-center gap-2 text-sm bg-blue-50 p-2 rounded">
+                          <Icon name="CheckCircle" className="h-4 w-4 text-primary" />
+                          {event}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Symptom Diary */}
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="BookOpen" className="h-5 w-5 text-primary" />
+                  Дневник симптомов
+                </CardTitle>
+                <CardDescription>
+                  Записывайте симптомы для отслеживания паттернов здоровья
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Выберите симптомы</Label>
+                  <div className="flex flex-wrap gap-1">
+                    {symptoms.map(symptom => (
+                      <Badge
+                        key={symptom}
+                        variant={currentSymptoms.includes(symptom) ? "default" : "outline"}
+                        className="cursor-pointer text-xs"
+                        onClick={() => toggleSymptom(symptom)}
+                      >
+                        {symptom}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Интенсивность (1-10)</Label>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-500">Слабо</span>
+                    <input
+                      type="range"
+                      min="1"
+                      max="10"
+                      value={severity}
+                      onChange={(e) => setSeverity(Number(e.target.value))}
+                      className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-sm text-gray-500">Сильно</span>
+                    <Badge variant="outline" className="min-w-[30px]">{severity}</Badge>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="symptom-notes">Заметки</Label>
+                  <Textarea
+                    id="symptom-notes"
+                    placeholder="Дополнительные детали..."
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    rows={2}
+                  />
+                </div>
+
+                <Button onClick={addSymptomEntry} className="w-full" disabled={currentSymptoms.length === 0}>
+                  <Icon name="Plus" className="mr-2 h-4 w-4" />
+                  Добавить запись
+                </Button>
+
+                {symptomEntries.length > 0 && (
+                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                    <Label>Последние записи</Label>
+                    {symptomEntries.slice(0, 3).map(entry => (
+                      <div key={entry.id} className="bg-gray-50 p-3 rounded text-sm">
+                        <div className="font-medium">{entry.date}</div>
+                        <div className="text-gray-600">
+                          {entry.symptoms.join(', ')} (интенсивность: {entry.severity})
+                        </div>
+                        {entry.notes && (
+                          <div className="text-gray-500 text-xs mt-1">{entry.notes}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Health Calculators */}
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="Calculator" className="h-5 w-5 text-primary" />
+                  Калькуляторы здоровья
+                </CardTitle>
+                <CardDescription>
+                  Рассчитайте ИМТ, норму воды и другие показатели
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="height">Рост (см)</Label>
+                    <Input
+                      id="height"
+                      type="number"
+                      placeholder="170"
+                      value={height}
+                      onChange={(e) => setHeight(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="weight">Вес (кг)</Label>
+                    <Input
+                      id="weight"
+                      type="number"
+                      placeholder="65"
+                      value={weight}
+                      onChange={(e) => setWeight(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="age">Возраст</Label>
+                  <Input
+                    id="age"
+                    type="number"
+                    placeholder="25"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                </div>
+
+                <Button onClick={calculateResults} className="w-full">
+                  <Icon name="Calculator" className="mr-2 h-4 w-4" />
+                  Рассчитать
+                </Button>
+
+                {calculatorResults.bmi && (
+                  <div className="space-y-3 bg-blue-50 p-4 rounded">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">
+                        ИМТ: {calculatorResults.bmi}
+                      </div>
+                      <div className={`text-sm font-medium ${calculatorResults.bmiCategory?.color}`}>
+                        {calculatorResults.bmiCategory?.category}
+                      </div>
+                    </div>
+                    
+                    {calculatorResults.water && (
+                      <div className="text-center border-t pt-3">
+                        <div className="text-lg font-semibold text-blue-600">
+                          Норма воды: {calculatorResults.water} л/день
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          Рекомендуемое количество воды в день
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="text-xs text-gray-500 text-center">
+                  * Результаты носят информационный характер
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
