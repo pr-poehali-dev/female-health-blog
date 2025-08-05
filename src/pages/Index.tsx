@@ -293,19 +293,28 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="text-center">
-              <h2 className="text-2xl font-sans font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
-                <Icon name="Activity" className="h-6 w-6 text-primary" />
-                Гормоны
-              </h2>
-              <p className="text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                Гормоны — невидимые регуляторы всего: от настроения до веса. Мы
-                рассказываем, как распознать симптомы гормонального дисбаланса,
-                какие анализы сдавать, как питание и образ жизни влияют на
-                уровень эстрогена, прогестерона, кортизола и щитовидных
-                гормонов. Здесь нет паники и навязанных решений — только мягкие,
-                разумные шаги к балансу.
-              </p>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h2 className="text-2xl font-sans font-bold text-gray-900 mb-4 flex items-center gap-3">
+                  <Icon name="Activity" className="h-6 w-6 text-primary" />
+                  Гормоны
+                </h2>
+                <p className="text-gray-600 leading-relaxed">
+                  Гормоны — невидимые регуляторы всего: от настроения до веса. Мы
+                  рассказываем, как распознать симптомы гормонального дисбаланса,
+                  какие анализы сдавать, как питание и образ жизни влияют на
+                  уровень эстрогена, прогестерона, кортизола и щитовидных
+                  гормонов. Здесь нет паники и навязанных решений — только мягкие,
+                  разумные шаги к балансу.
+                </p>
+              </div>
+              <div className="hidden md:block">
+                <img
+                  src="https://cdn.poehali.dev/files/58678ca4-0807-4c2e-8d59-5c2fd84f84ee.png"
+                  alt="Гормональный баланс"
+                  className="rounded-lg shadow-lg"
+                />
+              </div>
             </div>
 
             <div className="bg-blue-50 rounded-2xl p-8 text-center">
