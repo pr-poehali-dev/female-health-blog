@@ -63,35 +63,54 @@ const NutritionArticle = () => {
     if (newComment.name.trim() && newComment.text.trim()) {
       const comment = {
         id: Date.now(), // Используем timestamp для уникального ID
-        name: newComment.name,
+        name: newComment.name.trim(),
         date: new Date().toLocaleDateString('ru-RU', { 
           day: 'numeric', 
           month: 'long',
+          year: 'numeric'
+        }) + ' в ' + new Date().toLocaleTimeString('ru-RU', {
           hour: '2-digit',
           minute: '2-digit'
         }),
-        text: newComment.text
+        text: newComment.text.trim()
       };
       
       const updatedComments = [comment, ...comments];
       setComments(updatedComments);
       setNewComment({ name: "", text: "" });
       
-      // Save to localStorage
-      localStorage.setItem(`${articleId}-comments`, JSON.stringify(updatedComments));
+      // Save to localStorage с дополнительной проверкой
+      try {
+        localStorage.setItem(`${articleId}-comments`, JSON.stringify(updatedComments));
+      } catch (error) {
+        console.warn('Ошибка сохранения комментария:', error);
+      }
+      
+      // Прокручиваем к новому комментарию (плавно)
+      setTimeout(() => {
+        const commentsSection = document.querySelector('[data-comments-list]');
+        if (commentsSection) {
+          commentsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
   };
 
   // Увеличиваем количество просмотров при загрузке страницы
   useEffect(() => {
-    const hasViewed = sessionStorage.getItem(`${articleId}-viewed`);
-    if (!hasViewed) {
+    // Ключ для отслеживания просмотров с таймстампом (чтобы обновлялось каждые 15 минут)
+    const currentTime = Date.now();
+    const lastViewTime = localStorage.getItem(`${articleId}-lastView`);
+    const timeDiff = lastViewTime ? currentTime - parseInt(lastViewTime) : Infinity;
+    
+    // Обновляем просмотры, если прошло больше 15 минут с последнего просмотра
+    if (timeDiff > 15 * 60 * 1000) { // 15 минут в миллисекундах
       const newViewCount = viewCount + 1;
       setViewCount(newViewCount);
       localStorage.setItem(`${articleId}-views`, newViewCount.toString());
-      sessionStorage.setItem(`${articleId}-viewed`, 'true');
+      localStorage.setItem(`${articleId}-lastView`, currentTime.toString());
     }
-  }, []);
+  }, [viewCount]);
 
   useEffect(() => {
     updateSEO(
@@ -339,46 +358,49 @@ const NutritionArticle = () => {
         </div>
 
         {/* Like and Comments Section */}
-        <div className="mt-12 bg-white rounded-lg shadow-sm p-8">
+        <div className="mt-8 sm:mt-12 bg-white rounded-lg shadow-sm p-4 sm:p-6 lg:p-8">
           {/* Like Button */}
-          <div className="flex items-center gap-4 pb-6 border-b border-gray-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 pb-4 sm:pb-6 border-b border-gray-200">
             <Button
               variant={isLiked ? "default" : "outline"}
               onClick={handleLike}
-              className={`flex items-center gap-2 ${isLiked ? 'bg-red-500 hover:bg-red-600 text-white' : 'hover:bg-red-50 hover:text-red-600 hover:border-red-200'}`}
+              className={`flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-start ${isLiked ? 'bg-red-500 hover:bg-red-600 text-white' : 'hover:bg-red-50 hover:text-red-600 hover:border-red-200'} touch-manipulation`}
             >
-              <Icon name={isLiked ? "Heart" : "Heart"} className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
+              <Icon name="Heart" className={`h-4 w-4 sm:h-5 sm:w-5 ${isLiked ? 'fill-current' : ''}`} />
               {isLiked ? 'Нравится' : 'Нравится'}
             </Button>
-            <span className="text-gray-600">{likeCount} человек оценили эту статью</span>
+            <span className="text-gray-600 text-sm sm:text-base text-center sm:text-left">
+              {likeCount} {likeCount === 1 ? 'человек оценил' : 'человек оценили'} эту статью
+            </span>
           </div>
 
           {/* Comments Section */}
-          <div className="mt-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-6">
+          <div className="mt-4 sm:mt-6">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">
               Комментарии ({comments.length})
             </h3>
             
             {/* Add Comment Form */}
-            <div className="bg-gray-50 rounded-lg p-6 mb-6">
-              <h4 className="font-medium text-gray-900 mb-4">Оставить комментарий</h4>
-              <div className="space-y-4">
+            <div className="bg-gray-50 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
+              <h4 className="font-medium text-gray-900 mb-3 sm:mb-4 text-sm sm:text-base">Оставить комментарий</h4>
+              <div className="space-y-3 sm:space-y-4">
                 <Input
                   placeholder="Ваше имя"
                   value={newComment.name}
                   onChange={(e) => setNewComment({...newComment, name: e.target.value})}
-                  className="bg-white"
+                  className="bg-white text-sm sm:text-base"
                 />
                 <Textarea
                   placeholder="Поделитесь своим мнением о статье..."
                   value={newComment.text}
                   onChange={(e) => setNewComment({...newComment, text: e.target.value})}
-                  className="bg-white min-h-[100px]"
+                  className="bg-white min-h-[80px] sm:min-h-[100px] text-sm sm:text-base resize-none"
+                  rows={3}
                 />
                 <Button 
                   onClick={handleAddComment}
                   disabled={!newComment.name.trim() || !newComment.text.trim()}
-                  className="bg-green-600 hover:bg-green-700"
+                  className="bg-green-600 hover:bg-green-700 w-full sm:w-auto touch-manipulation"
                 >
                   <Icon name="Send" className="h-4 w-4 mr-2" />
                   Отправить комментарий
@@ -387,16 +409,35 @@ const NutritionArticle = () => {
             </div>
 
             {/* Comments List */}
-            <div className="space-y-6">
-              {comments.map((comment) => (
-                <div key={comment.id} className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h5 className="font-medium text-gray-900">{comment.name}</h5>
-                    <span className="text-sm text-gray-500">{comment.date}</span>
-                  </div>
-                  <p className="text-gray-700">{comment.text}</p>
+            <div className="space-y-4 sm:space-y-6" data-comments-list>
+              {comments.length === 0 ? (
+                <div className="text-center py-6 sm:py-8 text-gray-500">
+                  <Icon name="MessageCircle" className="h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-2 opacity-50" />
+                  <p className="text-sm sm:text-base">Пока никто не оставил комментарий. Будьте первым!</p>
                 </div>
-              ))}
+              ) : (
+                comments.map((comment, index) => (
+                  <div 
+                    key={comment.id} 
+                    className={`bg-gray-50 rounded-lg p-3 sm:p-4 transition-all duration-300 ${
+                      index === 0 ? 'ring-2 ring-green-200 bg-green-50' : ''
+                    }`}
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1 sm:gap-0">
+                      <h5 className="font-medium text-gray-900 text-sm sm:text-base flex items-center gap-2">
+                        {comment.name}
+                        {index === 0 && (
+                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+                            Новый
+                          </span>
+                        )}
+                      </h5>
+                      <span className="text-xs sm:text-sm text-gray-500">{comment.date}</span>
+                    </div>
+                    <p className="text-gray-700 text-sm sm:text-base leading-relaxed break-words">{comment.text}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
