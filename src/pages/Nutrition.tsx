@@ -90,56 +90,62 @@ const Nutrition = () => {
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center py-3 sm:py-4">
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-3">
+              <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
                 <Icon
                   name="Heart"
-                  className="h-8 w-8 text-medical-blue"
+                  className="h-6 w-6 sm:h-8 sm:w-8 text-medical-blue"
                 />
-                <h1 className="text-2xl font-sans font-bold text-gray-900">
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-sans font-bold text-gray-900">
                   Женское Здоровье
                 </h1>
               </Link>
             </div>
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden sm:flex space-x-4 lg:space-x-8">
               <Link
                 to="/nutrition"
-                className="text-medical-blue font-medium border-b-2 border-medical-blue pb-1"
+                className="text-medical-blue font-medium border-b-2 border-medical-blue pb-1 text-sm lg:text-base"
               >
                 Питание
               </Link>
               <Link
                 to="/workouts"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Тренировки
               </Link>
               <Link
                 to="/hormones"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Гормоны
               </Link>
               <Link
                 to="/doctor-advice"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Советы врача
               </Link>
             </nav>
+            {/* Мобильное меню */}
+            <div className="sm:hidden">
+              <button className="text-gray-700 hover:text-medical-blue">
+                <Icon name="Menu" className="h-6 w-6" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-16">
+      <section className="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-4xl font-sans font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-bold mb-4 sm:mb-6">
               Питание для женского здоровья
             </h2>
-            <p className="text-xl mb-8 text-green-100 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 text-green-100 max-w-3xl mx-auto px-4">
               Научно обоснованные рекомендации по питанию, которые помогут вам чувствовать себя энергично и здорово каждый день
             </p>
           </div>
@@ -147,20 +153,20 @@ const Nutrition = () => {
       </section>
 
       {/* Search Section */}
-      <section className="py-12 bg-white">
+      <section className="py-8 sm:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto mb-8">
+          <div className="max-w-2xl mx-auto mb-6 sm:mb-8">
             <div className="relative">
               <Icon
                 name="Search"
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 sm:h-5 sm:w-5"
               />
               <Input
                 type="text"
                 placeholder="Поиск статей о питании..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 py-3 text-lg"
+                className="pl-10 py-2 sm:py-3 text-base sm:text-lg"
               />
             </div>
           </div>
@@ -168,39 +174,41 @@ const Nutrition = () => {
       </section>
 
       {/* Articles Grid */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-8 sm:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {filteredArticles.map((article) => (
-              <Link key={article.id} to={article.slug || "#"}>
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer group h-full">
+              <Link key={article.id} to={article.slug || "#"} className="block">
+                <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer group h-full active:scale-[0.98] touch-manipulation">
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                   <img
                     src={article.image}
                     alt={article.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
                   />
                 </div>
-                <CardHeader>
-                  <CardTitle className="text-xl group-hover:text-green-600 transition-colors">
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="text-base sm:text-lg lg:text-xl group-hover:text-green-600 transition-colors leading-tight line-clamp-2">
                     {article.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-600">
+                  <CardDescription className="text-gray-600 text-sm line-clamp-2 sm:line-clamp-3">
                     {article.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
                     {article.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-xs">
+                      <Badge key={tag} variant="secondary" className="text-xs px-2 py-1">
                         {tag}
                       </Badge>
                     ))}
                   </div>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>{article.author}</span>
-                    <div className="flex items-center space-x-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-gray-500 space-y-1 sm:space-y-0">
+                    <span className="font-medium">{article.author}</span>
+                    <div className="flex items-center space-x-2 sm:space-x-4">
                       <span>{article.date}</span>
+                      <span>•</span>
                       <span>{article.readTime}</span>
                     </div>
                   </div>
@@ -211,12 +219,12 @@ const Nutrition = () => {
           </div>
 
           {filteredArticles.length === 0 && (
-            <div className="text-center py-12">
-              <Icon name="Search" className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <div className="text-center py-8 sm:py-12">
+              <Icon name="Search" className="h-8 w-8 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">
                 Статьи не найдены
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm sm:text-base">
                 Попробуйте изменить поисковый запрос
               </p>
             </div>

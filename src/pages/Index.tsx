@@ -108,68 +108,74 @@ const Index = () => {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-4">
+          <div className="flex justify-between items-center py-4 sm:py-6">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="flex items-center space-x-2">
                 <Icon
                   name="Stethoscope"
-                  className="h-8 w-8 text-medical-blue"
+                  className="h-6 w-6 sm:h-8 sm:w-8 text-medical-blue"
                 />
-                <h1 className="text-2xl font-sans font-bold text-gray-900">
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-sans font-bold text-gray-900">
                   Женское Здоровье
                 </h1>
               </div>
             </div>
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden sm:flex space-x-4 lg:space-x-8">
               <Link
                 to="/nutrition"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Питание
               </Link>
               <Link
                 to="/workouts"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Тренировки
               </Link>
               <Link
                 to="/hormones"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Гормоны
               </Link>
               <Link
                 to="/doctor-advice"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Советы врача
               </Link>
             </nav>
+            {/* Мобильное меню */}
+            <div className="sm:hidden">
+              <button className="text-gray-700 hover:text-medical-blue">
+                <Icon name="Menu" className="h-6 w-6" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-blue-600 text-white py-16">
+      <section className="bg-gradient-to-r from-primary to-blue-600 text-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-sans font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-bold mb-4 sm:mb-6">
                 Ваше здоровье — наш приоритет
               </h2>
-              <p className="text-xl mb-8 text-blue-100">
+              <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 text-blue-100">
                 Профессиональные медицинские советы, научно обоснованные
                 рекомендации и персональный подход к женскому здоровью
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Button className="bg-white text-primary hover:bg-gray-100">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <Button className="bg-white text-primary hover:bg-gray-100 w-full sm:w-auto">
                   <Icon name="Search" className="mr-2 h-4 w-4" />
                   Поиск по симптомам
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-primary"
+                  className="border-white text-white hover:bg-white hover:text-primary w-full sm:w-auto"
                 >
                   Консультация врача
                 </Button>
@@ -179,7 +185,8 @@ const Index = () => {
               <img
                 src="/img/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg"
                 alt="Здоровая женщина"
-                className="rounded-lg shadow-2xl"
+                className="rounded-lg shadow-2xl w-full h-auto"
+                loading="lazy"
               />
             </div>
           </div>
@@ -187,42 +194,42 @@ const Index = () => {
       </section>
 
       {/* Search Section */}
-      <section className="py-12 bg-white">
+      <section className="py-8 sm:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-sans font-bold text-gray-900 mb-4">
+          <div className="text-center mb-6 sm:mb-8">
+            <h3 className="text-xl sm:text-2xl font-sans font-bold text-gray-900 mb-3 sm:mb-4">
               Поиск по симптомам и темам
             </h3>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
               Найдите статьи по интересующим вас симптомам или темам здоровья
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto mb-8">
+          <div className="max-w-2xl mx-auto mb-6 sm:mb-8">
             <div className="relative">
               <Icon
                 name="Search"
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 sm:h-5 sm:w-5"
               />
               <Input
                 type="text"
                 placeholder="Введите симптом или тему..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 py-3 text-lg"
+                className="pl-10 py-2 sm:py-3 text-base sm:text-lg"
               />
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 justify-center mb-8">
+          <div className="flex flex-wrap gap-2 justify-center mb-6 sm:mb-8">
             {symptoms.map((symptom) => (
               <Badge
                 key={symptom}
                 variant={selectedTags.includes(symptom) ? "default" : "outline"}
-                className={`cursor-pointer transition-colors ${
+                className={`cursor-pointer transition-colors text-xs sm:text-sm px-2 py-1 touch-manipulation ${
                   selectedTags.includes(symptom)
                     ? "bg-primary text-white"
-                    : "hover:bg-gray-100"
+                    : "hover:bg-gray-100 active:bg-gray-200"
                 }`}
                 onClick={() => toggleTag(symptom)}
               >
@@ -348,60 +355,63 @@ const Index = () => {
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Tabs defaultValue="all" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="all">Все статьи</TabsTrigger>
-              <TabsTrigger value="питание">Питание</TabsTrigger>
-              <TabsTrigger value="тренировки">Тренировки</TabsTrigger>
-              <TabsTrigger value="гормоны">Гормоны</TabsTrigger>
-              <TabsTrigger value="советы врача">Советы врача</TabsTrigger>
-            </TabsList>
+            <div className="overflow-x-auto">
+              <TabsList className="grid w-full grid-cols-5 min-w-max">
+                <TabsTrigger value="all" className="text-xs sm:text-sm whitespace-nowrap">Все статьи</TabsTrigger>
+                <TabsTrigger value="питание" className="text-xs sm:text-sm whitespace-nowrap">Питание</TabsTrigger>
+                <TabsTrigger value="тренировки" className="text-xs sm:text-sm whitespace-nowrap">Тренировки</TabsTrigger>
+                <TabsTrigger value="гормоны" className="text-xs sm:text-sm whitespace-nowrap">Гормоны</TabsTrigger>
+                <TabsTrigger value="советы врача" className="text-xs sm:text-sm whitespace-nowrap">Советы врача</TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent value="all" className="mt-8">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {filteredArticles.map((article) => (
                   <Link
                     key={article.id}
                     to={article.slug || "#"}
                     className="block"
                   >
-                    <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
+                    <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer h-full active:scale-[0.98] touch-manipulation">
                       <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                         <img
                           src={article.image}
                           alt={article.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                          loading="lazy"
                         />
                       </div>
-                      <CardHeader>
+                      <CardHeader className="p-4 sm:p-6">
                         <div className="flex justify-between items-start mb-2">
-                          <Badge variant="secondary" className="text-xs">
+                          <Badge variant="secondary" className="text-xs px-2 py-1">
                             {article.category}
                           </Badge>
                           <span className="text-xs text-gray-500">
                             {article.readTime}
                           </span>
                         </div>
-                        <CardTitle className="text-lg font-sans">
+                        <CardTitle className="text-base sm:text-lg font-sans leading-tight line-clamp-2">
                           {article.title}
                         </CardTitle>
-                        <CardDescription className="text-sm">
+                        <CardDescription className="text-sm line-clamp-2 sm:line-clamp-3">
                           {article.description}
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="p-4 sm:p-6 pt-0">
                         <div className="flex flex-wrap gap-1 mb-4">
                           {article.tags.map((tag) => (
                             <Badge
                               key={tag}
                               variant="outline"
-                              className="text-xs"
+                              className="text-xs px-2 py-1"
                             >
                               {tag}
                             </Badge>
                           ))}
                         </div>
-                        <div className="flex justify-between items-center text-sm text-gray-500">
-                          <span>{article.author}</span>
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs sm:text-sm text-gray-500 space-y-1 sm:space-y-0">
+                          <span className="font-medium">{article.author}</span>
                           <span>{article.date}</span>
                         </div>
                       </CardContent>

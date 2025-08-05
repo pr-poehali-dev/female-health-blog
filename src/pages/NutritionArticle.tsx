@@ -104,77 +104,85 @@ const NutritionArticle = () => {
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center py-3 sm:py-4">
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-3">
+              <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
                 <Icon
                   name="Heart"
-                  className="h-8 w-8 text-medical-blue"
+                  className="h-6 w-6 sm:h-8 sm:w-8 text-medical-blue"
                 />
-                <h1 className="text-2xl font-sans font-bold text-gray-900">
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-sans font-bold text-gray-900">
                   Женское Здоровье
                 </h1>
               </Link>
             </div>
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden sm:flex space-x-4 lg:space-x-8">
               <Link
                 to="/nutrition"
-                className="text-medical-blue font-medium border-b-2 border-medical-blue pb-1"
+                className="text-medical-blue font-medium border-b-2 border-medical-blue pb-1 text-sm lg:text-base"
               >
                 Питание
               </Link>
               <Link
                 to="/workouts"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Тренировки
               </Link>
               <Link
                 to="/hormones"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Гормоны
               </Link>
               <Link
                 to="/doctor-advice"
-                className="text-gray-700 hover:text-medical-blue transition-colors"
+                className="text-gray-700 hover:text-medical-blue transition-colors text-sm lg:text-base"
               >
                 Советы врача
               </Link>
             </nav>
+            {/* Мобильное меню */}
+            <div className="sm:hidden">
+              <button className="text-gray-700 hover:text-medical-blue">
+                <Icon name="Menu" className="h-6 w-6" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Article Header */}
-      <section className="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-12">
+      <section className="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-8 sm:py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-6">
-            <Link to="/nutrition" className="inline-flex items-center text-green-100 hover:text-white transition-colors">
+          <div className="mb-4 sm:mb-6">
+            <Link to="/nutrition" className="inline-flex items-center text-green-100 hover:text-white transition-colors text-sm sm:text-base">
               <Icon name="ArrowLeft" className="h-4 w-4 mr-2" />
               Вернуться к статьям о питании
             </Link>
           </div>
-          <div className="flex flex-wrap gap-2 mb-4">
-            <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6 justify-center sm:justify-start">
+            <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20 text-xs sm:text-sm px-2 py-1">
               Питание
             </Badge>
-            <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20">
+            <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20 text-xs sm:text-sm px-2 py-1">
               Гормоны
             </Badge>
-            <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20">
+            <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20 text-xs sm:text-sm px-2 py-1">
               Энергия
             </Badge>
-            <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20">
+            <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20 text-xs sm:text-sm px-2 py-1">
               30+
             </Badge>
           </div>
-          <h1 className="text-4xl font-sans font-bold mb-4">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-bold mb-4 sm:mb-6 leading-tight text-center sm:text-left">
             Правильное питание для женщин после 30 лет: что есть и зачем
           </h1>
-          <div className="flex items-center space-x-6 text-green-100">
-            <span>Др. Ольга Смирнова</span>
+          <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-6 text-green-100 text-sm sm:text-base text-center sm:text-left">
+            <span className="font-medium">Др. Ольга Смирнова</span>
+            <span className="hidden sm:block">•</span>
             <span>5 августа 2025</span>
+            <span className="hidden sm:block">•</span>
             <span>12 мин чтения</span>
             <div className="flex items-center space-x-1">
               <Icon name="Eye" className="h-4 w-4" />
@@ -185,14 +193,15 @@ const NutritionArticle = () => {
       </section>
 
       {/* Article Content */}
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-lg shadow-sm p-8 prose prose-lg max-w-none">
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 lg:p-8 prose prose-sm sm:prose-base lg:prose-lg max-w-none">
           {/* Hero Cover Image */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <img
               src="https://cdn.poehali.dev/files/5f14f906-dc89-4c72-aef7-c0b6c8d3f55f.png"
               alt="Сбалансированное здоровое питание - тарелка с лососем, киноа, брокколи и шпинатом"
               className="w-full max-w-2xl mx-auto block rounded-lg shadow-lg"
+              loading="lazy"
             />
           </div>
 
@@ -205,11 +214,12 @@ const NutritionArticle = () => {
               Почему после 30 питание должно меняться
             </h2>
             
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               <img
                 src="https://cdn.poehali.dev/files/69812513-7b8a-4c74-993c-898ca801fded.jpg"
                 alt="Здоровый завтрак с лососем, яйцом и овощами"
                 className="w-full max-w-md mx-auto block rounded-lg shadow-md"
+                loading="lazy"
               />
             </div>
             
