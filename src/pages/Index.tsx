@@ -286,7 +286,7 @@ const Index = () => {
               </div>
               <div className="md:order-1 hidden md:block">
                 <img
-                  src="/img/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg"
+                  src="https://cdn.poehali.dev/files/2e05c48e-851c-47ef-823c-0f1bfb0283f4.png"
                   alt="Женские тренировки"
                   className="rounded-lg shadow-lg"
                 />
