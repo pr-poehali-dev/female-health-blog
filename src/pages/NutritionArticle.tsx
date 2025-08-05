@@ -8,39 +8,71 @@ import Icon from "@/components/ui/icon";
 import { updateSEO } from "@/lib/seo";
 
 const NutritionArticle = () => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(24);
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      name: "Мария К.",
-      date: "2 дня назад",
-      text: "Отличная статья! Особенно полезны рекомендации по белкам. Уже начала включать больше рыбы в рацион."
-    },
-    {
-      id: 2,
-      name: "Анна С.",
-      date: "1 неделю назад", 
-      text: "Спасибо за такую подробную информацию. Теперь понимаю, почему после 30 стало сложнее поддерживать энергию."
-    }
-  ]);
+  const articleId = "nutrition-article-1"; // Уникальный ID статьи
+
+  // Initialize state from localStorage
+  const [isLiked, setIsLiked] = useState(() => {
+    const saved = localStorage.getItem(`${articleId}-liked`);
+    return saved ? JSON.parse(saved) : false;
+  });
+  
+  const [likeCount, setLikeCount] = useState(() => {
+    const saved = localStorage.getItem(`${articleId}-likeCount`);
+    return saved ? parseInt(saved) : 24;
+  });
+
+  const [comments, setComments] = useState(() => {
+    const saved = localStorage.getItem(`${articleId}-comments`);
+    return saved ? JSON.parse(saved) : [
+      {
+        id: 1,
+        name: "Мария К.",
+        date: "2 дня назад",
+        text: "Отличная статья! Особенно полезны рекомендации по белкам. Уже начала включать больше рыбы в рацион."
+      },
+      {
+        id: 2,
+        name: "Анна С.",
+        date: "1 неделю назад", 
+        text: "Спасибо за такую подробную информацию. Теперь понимаю, почему после 30 стало сложнее поддерживать энергию."
+      }
+    ];
+  });
+
   const [newComment, setNewComment] = useState({ name: "", text: "" });
 
   const handleLike = () => {
-    setIsLiked(!isLiked);
-    setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+    const newLikedState = !isLiked;
+    const newLikeCount = newLikedState ? likeCount + 1 : likeCount - 1;
+    
+    setIsLiked(newLikedState);
+    setLikeCount(newLikeCount);
+    
+    // Save to localStorage
+    localStorage.setItem(`${articleId}-liked`, JSON.stringify(newLikedState));
+    localStorage.setItem(`${articleId}-likeCount`, newLikeCount.toString());
   };
 
   const handleAddComment = () => {
     if (newComment.name.trim() && newComment.text.trim()) {
       const comment = {
-        id: comments.length + 1,
+        id: Date.now(), // Используем timestamp для уникального ID
         name: newComment.name,
-        date: "только что",
+        date: new Date().toLocaleDateString('ru-RU', { 
+          day: 'numeric', 
+          month: 'long',
+          hour: '2-digit',
+          minute: '2-digit'
+        }),
         text: newComment.text
       };
-      setComments([comment, ...comments]);
+      
+      const updatedComments = [comment, ...comments];
+      setComments(updatedComments);
       setNewComment({ name: "", text: "" });
+      
+      // Save to localStorage
+      localStorage.setItem(`${articleId}-comments`, JSON.stringify(updatedComments));
     }
   };
 
