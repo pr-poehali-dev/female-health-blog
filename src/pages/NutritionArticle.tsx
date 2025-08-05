@@ -10,6 +10,12 @@ import { updateSEO } from "@/lib/seo";
 const NutritionArticle = () => {
   const articleId = "nutrition-article-1"; // Уникальный ID статьи
 
+  // Счетчик просмотров
+  const [viewCount, setViewCount] = useState(() => {
+    const saved = localStorage.getItem(`${articleId}-views`);
+    return saved ? parseInt(saved) : 127; // Начальное количество просмотров
+  });
+
   // Initialize state from localStorage
   const [isLiked, setIsLiked] = useState(() => {
     const saved = localStorage.getItem(`${articleId}-liked`);
@@ -75,6 +81,17 @@ const NutritionArticle = () => {
       localStorage.setItem(`${articleId}-comments`, JSON.stringify(updatedComments));
     }
   };
+
+  // Увеличиваем количество просмотров при загрузке страницы
+  useEffect(() => {
+    const hasViewed = sessionStorage.getItem(`${articleId}-viewed`);
+    if (!hasViewed) {
+      const newViewCount = viewCount + 1;
+      setViewCount(newViewCount);
+      localStorage.setItem(`${articleId}-views`, newViewCount.toString());
+      sessionStorage.setItem(`${articleId}-viewed`, 'true');
+    }
+  }, []);
 
   useEffect(() => {
     updateSEO(
@@ -156,9 +173,13 @@ const NutritionArticle = () => {
             Правильное питание для женщин после 30 лет: что есть и зачем
           </h1>
           <div className="flex items-center space-x-6 text-green-100">
-            <span>Др. Анна Петрова</span>
-            <span>15 янв 2024</span>
-            <span>8 мин чтения</span>
+            <span>Др. Ольга Смирнова</span>
+            <span>5 августа 2025</span>
+            <span>12 мин чтения</span>
+            <div className="flex items-center space-x-1">
+              <Icon name="Eye" className="h-4 w-4" />
+              <span>{viewCount} просмотров</span>
+            </div>
           </div>
         </div>
       </section>

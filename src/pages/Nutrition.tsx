@@ -21,9 +21,9 @@ const Nutrition = () => {
       title: "Правильное питание для женщин после 30 лет",
       description: "Что должно входить в рацион женщины после 30 лет: продукты, режим, рекомендации при гормональном сбое и усталости",
       tags: ["питание", "гормоны", "энергия", "30+"],
-      author: "Др. Анна Петрова",
-      date: "15 янв 2024",
-      readTime: "8 мин",
+      author: "Др. Ольга Смирнова",
+      date: "5 августа 2025",
+      readTime: "12 мин",
       image: "https://cdn.poehali.dev/files/5f14f906-dc89-4c72-aef7-c0b6c8d3f55f.png",
       slug: "/nutrition/pravilnoe-pitanie-dlya-zhenshchin-posle-30"
     },
