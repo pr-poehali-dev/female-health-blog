@@ -112,6 +112,15 @@ const NutritionArticle = () => {
             <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
               Почему после 30 питание должно меняться
             </h2>
+            
+            <div className="mb-6">
+              <img
+                src="https://cdn.poehali.dev/files/69812513-7b8a-4c74-993c-898ca801fded.jpg"
+                alt="Здоровый завтрак с лососем, яйцом и овощами"
+                className="w-full h-64 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            
             <p>
               В этом возрасте женский организм постепенно вступает в фазу гормональных перестроек. Уровень эстрогена и прогестерона может снижаться, повышается чувствительность к стрессу, а метаболизм становится медленнее.
             </p>
@@ -138,6 +147,15 @@ const NutritionArticle = () => {
             <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">
               2. Здоровые жиры
             </h3>
+            
+            <div className="mb-4">
+              <img
+                src="https://cdn.poehali.dev/files/9fa2e523-bf07-4751-991d-a066048c2ca6.png"
+                alt="Лосось с киноа и шпинатом - источник здоровых жиров"
+                className="w-full h-64 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            
             <div className="bg-blue-50 p-4 rounded-lg">
               <p className="font-medium text-blue-800 mb-2">Продукты:</p>
               <p className="text-blue-700 mb-3">Авокадо, оливковое масло, льняное масло, жирная рыба</p>
@@ -186,6 +204,15 @@ const NutritionArticle = () => {
             <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
               Пример меню на день
             </h2>
+            
+            <div className="mb-6">
+              <img
+                src="https://cdn.poehali.dev/files/79966255-508c-4b76-a67d-b73bf6ba49ff.jpg"
+                alt="Пример здорового питания на день - четыре тарелки с разными блюдами"
+                className="w-full h-80 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            
             <div className="bg-yellow-50 p-6 rounded-lg">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
