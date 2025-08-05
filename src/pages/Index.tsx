@@ -1,81 +1,101 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import Icon from '@/components/ui/icon';
+import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import Icon from "@/components/ui/icon";
 
 const Index = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const symptoms = [
-    'усталость', 'головная боль', 'бессонница', 'стресс', 'депрессия',
-    'боль в спине', 'проблемы с кожей', 'лишний вес', 'гормональный сбой'
+    "усталость",
+    "головная боль",
+    "бессонница",
+    "стресс",
+    "депрессия",
+    "боль в спине",
+    "проблемы с кожей",
+    "лишний вес",
+    "гормональный сбой",
   ];
 
   const articles = [
     {
       id: 1,
-      title: 'Правильное питание для энергии',
-      description: 'Как сбалансированное питание влияет на уровень энергии в течение дня',
-      category: 'питание',
-      tags: ['усталость', 'энергия', 'витамины'],
-      author: 'Др. Анна Петрова',
-      date: '15 янв 2024',
-      readTime: '5 мин'
+      title: "Правильное питание для энергии",
+      description:
+        "Как сбалансированное питание влияет на уровень энергии в течение дня",
+      category: "питание",
+      tags: ["усталость", "энергия", "витамины"],
+      author: "Др. Анна Петрова",
+      date: "15 янв 2024",
+      readTime: "5 мин",
     },
     {
       id: 2,
-      title: 'Гормональный баланс после 30',
-      description: 'Основные изменения в гормональной системе и способы поддержания баланса',
-      category: 'гормоны',
-      tags: ['гормональный сбой', 'возраст', 'здоровье'],
-      author: 'Др. Мария Сидорова',
-      date: '12 янв 2024',
-      readTime: '7 мин'
+      title: "Гормональный баланс после 30",
+      description:
+        "Основные изменения в гормональной системе и способы поддержания баланса",
+      category: "гормоны",
+      tags: ["гормональный сбой", "возраст", "здоровье"],
+      author: "Др. Мария Сидорова",
+      date: "12 янв 2024",
+      readTime: "7 мин",
     },
     {
       id: 3,
-      title: 'Силовые тренировки для женщин',
-      description: 'Безопасные и эффективные упражнения для развития мышечной силы',
-      category: 'тренировки',
-      tags: ['фитнес', 'сила', 'мышцы'],
-      author: 'Тренер Елена Козлова',
-      date: '10 янв 2024',
-      readTime: '6 мин'
+      title: "Силовые тренировки для женщин",
+      description:
+        "Безопасные и эффективные упражнения для развития мышечной силы",
+      category: "тренировки",
+      tags: ["фитнес", "сила", "мышцы"],
+      author: "Тренер Елена Козлова",
+      date: "10 янв 2024",
+      readTime: "6 мин",
     },
     {
       id: 4,
-      title: 'Борьба со стрессом: медицинские рекомендации',
-      description: 'Научно обоснованные методы управления стрессом и его влиянием на организм',
-      category: 'советы врача',
-      tags: ['стресс', 'психология', 'здоровье'],
-      author: 'Др. Ирина Волкова',
-      date: '8 янв 2024',
-      readTime: '8 мин'
-    }
+      title: "Борьба со стрессом: медицинские рекомендации",
+      description:
+        "Научно обоснованные методы управления стрессом и его влиянием на организм",
+      category: "советы врача",
+      tags: ["стресс", "психология", "здоровье"],
+      author: "Др. Ирина Волкова",
+      date: "8 янв 2024",
+      readTime: "8 мин",
+    },
   ];
 
-  const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         article.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesTags = selectedTags.length === 0 || 
-                       selectedTags.some(tag => article.tags.includes(tag));
+  const filteredArticles = articles.filter((article) => {
+    const matchesSearch =
+      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesTags =
+      selectedTags.length === 0 ||
+      selectedTags.some((tag) => article.tags.includes(tag));
     return matchesSearch && matchesTags;
   });
 
   const toggleTag = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) 
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
-
-
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 font-body">
@@ -85,15 +105,40 @@ const Index = () => {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <Icon name="Stethoscope" className="h-8 w-8 text-medical-blue" />
-                <h1 className="text-2xl font-sans font-bold text-gray-900">Женское Здоровье</h1>
+                <Icon
+                  name="Stethoscope"
+                  className="h-8 w-8 text-medical-blue"
+                />
+                <h1 className="text-2xl font-sans font-bold text-gray-900">
+                  Женское Здоровье
+                </h1>
               </div>
             </div>
             <nav className="hidden md:flex space-x-8">
-              <a href="#nutrition" className="text-gray-700 hover:text-medical-blue transition-colors">Питание</a>
-              <a href="#workouts" className="text-gray-700 hover:text-medical-blue transition-colors">Тренировки</a>
-              <a href="#hormones" className="text-gray-700 hover:text-medical-blue transition-colors">Гормоны</a>
-              <a href="#doctor-advice" className="text-gray-700 hover:text-medical-blue transition-colors">Советы врача</a>
+              <a
+                href="#nutrition"
+                className="text-gray-700 hover:text-medical-blue transition-colors"
+              >
+                Питание
+              </a>
+              <a
+                href="#workouts"
+                className="text-gray-700 hover:text-medical-blue transition-colors"
+              >
+                Тренировки
+              </a>
+              <a
+                href="#hormones"
+                className="text-gray-700 hover:text-medical-blue transition-colors"
+              >
+                Гормоны
+              </a>
+              <a
+                href="#doctor-advice"
+                className="text-gray-700 hover:text-medical-blue transition-colors"
+              >
+                Советы врача
+              </a>
             </nav>
           </div>
         </div>
@@ -108,22 +153,26 @@ const Index = () => {
                 Ваше здоровье — наш приоритет
               </h2>
               <p className="text-xl mb-8 text-blue-100">
-                Профессиональные медицинские советы, научно обоснованные рекомендации и персональный подход к женскому здоровью
+                Профессиональные медицинские советы, научно обоснованные
+                рекомендации и персональный подход к женскому здоровью
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button className="bg-white text-primary hover:bg-gray-100">
                   <Icon name="Search" className="mr-2 h-4 w-4" />
                   Поиск по симптомам
                 </Button>
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                <Button
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-primary"
+                >
                   Консультация врача
                 </Button>
               </div>
             </div>
             <div className="hidden md:block">
-              <img 
-                src="/img/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg" 
-                alt="Здоровая женщина" 
+              <img
+                src="/img/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg"
+                alt="Здоровая женщина"
                 className="rounded-lg shadow-2xl"
               />
             </div>
@@ -145,7 +194,10 @@ const Index = () => {
 
           <div className="max-w-2xl mx-auto mb-8">
             <div className="relative">
-              <Icon name="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Icon
+                name="Search"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"
+              />
               <Input
                 type="text"
                 placeholder="Введите симптом или тему..."
@@ -157,14 +209,14 @@ const Index = () => {
           </div>
 
           <div className="flex flex-wrap gap-2 justify-center mb-8">
-            {symptoms.map(symptom => (
+            {symptoms.map((symptom) => (
               <Badge
                 key={symptom}
                 variant={selectedTags.includes(symptom) ? "default" : "outline"}
                 className={`cursor-pointer transition-colors ${
-                  selectedTags.includes(symptom) 
-                    ? 'bg-primary text-white' 
-                    : 'hover:bg-gray-100'
+                  selectedTags.includes(symptom)
+                    ? "bg-primary text-white"
+                    : "hover:bg-gray-100"
                 }`}
                 onClick={() => toggleTag(symptom)}
               >
@@ -180,10 +232,14 @@ const Index = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-sans font-bold text-gray-900 mb-6">
-              Добро пожаловать на блог о здоровье, питании и гормональном балансе
+              Добро пожаловать на блог о здоровье, питании и гормональном
+              балансе
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Здесь вы найдёте проверенную и практичную информацию о том, как сохранить здоровье, энергию и гормональный баланс после 30 лет. Мы говорим просто и по делу — о том, что действительно работает в питании, тренировках и поддержке женского организма.
+              Здесь вы найдёте проверенную и практичную информацию о том, как
+              сохранить здоровье, энергию и гормональный баланс после 30 лет. Мы
+              говорим просто и по делу — о том, что действительно работает в
+              питании, тренировках и поддержке женского организма.
             </p>
           </div>
 
@@ -195,13 +251,18 @@ const Index = () => {
                   Питание
                 </h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Питание — это не просто калории. Это информация, которую получает ваше тело каждый день. На сайте вы найдёте материалы о правильном питании для женщин после 35, советы по рациону при гормональном сбое, подборки полезных продуктов и антипитание — чего стоит избегать, если вы часто чувствуете усталость, перепады настроения или проблемы со сном.
+                  Питание — это не просто калории. Это информация, которую
+                  получает ваше тело каждый день. На сайте вы найдёте материалы
+                  о правильном питании для женщин после 30, советы по рациону
+                  при гормональном сбое, подборки полезных продуктов и
+                  антипитание — чего стоит избегать, если вы часто чувствуете
+                  усталость, перепады настроения или проблемы со сном.
                 </p>
               </div>
               <div className="hidden md:block">
-                <img 
-                  src="/img/30274144-9fcd-4808-a6f6-8ba0e0bff543.jpg" 
-                  alt="Здоровое питание" 
+                <img
+                  src="/img/30274144-9fcd-4808-a6f6-8ba0e0bff543.jpg"
+                  alt="Здоровое питание"
                   className="rounded-lg shadow-lg"
                 />
               </div>
@@ -214,13 +275,19 @@ const Index = () => {
                   Тренировки
                 </h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Тренировки — это не про изнурение, а про восстановление. Мы делимся комплексами упражнений для женщин 30+, которые помогают снизить уровень стресса, поддержать метаболизм и не выгорать. Особое внимание уделено тренировкам при высоком кортизоле, физической активности в фазах цикла и восстановительным практикам, которые помогают телу адаптироваться к изменениям.
+                  Тренировки — это не про изнурение, а про восстановление. Мы
+                  делимся комплексами упражнений для женщин 30+, которые
+                  помогают снизить уровень стресса, поддержать метаболизм и не
+                  выгорать. Особое внимание уделено тренировкам при высоком
+                  кортизоле, физической активности в фазах цикла и
+                  восстановительным практикам, которые помогают телу
+                  адаптироваться к изменениям.
                 </p>
               </div>
               <div className="md:order-1 hidden md:block">
-                <img 
-                  src="/img/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg" 
-                  alt="Женские тренировки" 
+                <img
+                  src="/img/3d45bfbc-9eb6-47d9-a274-6519dd69fc1f.jpg"
+                  alt="Женские тренировки"
                   className="rounded-lg shadow-lg"
                 />
               </div>
@@ -232,7 +299,12 @@ const Index = () => {
                 Гормоны
               </h2>
               <p className="text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                Гормоны — невидимые регуляторы всего: от настроения до веса. Мы рассказываем, как распознать симптомы гормонального дисбаланса, какие анализы сдавать, как питание и образ жизни влияют на уровень эстрогена, прогестерона, кортизола и щитовидных гормонов. Здесь нет паники и навязанных решений — только мягкие, разумные шаги к балансу.
+                Гормоны — невидимые регуляторы всего: от настроения до веса. Мы
+                рассказываем, как распознать симптомы гормонального дисбаланса,
+                какие анализы сдавать, как питание и образ жизни влияют на
+                уровень эстрогена, прогестерона, кортизола и щитовидных
+                гормонов. Здесь нет паники и навязанных решений — только мягкие,
+                разумные шаги к балансу.
               </p>
             </div>
 
@@ -241,10 +313,16 @@ const Index = () => {
                 Наш подход
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Каждая статья основана на актуальных исследованиях, экспертном мнении и реальных историях. Мы верим, что забота о себе начинается с понимания. Неважно, с чего вы начинаете — с поиска ответа на конкретный симптом или с желания навести порядок в питании — вы найдёте здесь поддержку и полезные рекомендации.
+                Каждая статья основана на актуальных исследованиях, экспертном
+                мнении и реальных историях. Мы верим, что забота о себе
+                начинается с понимания. Неважно, с чего вы начинаете — с поиска
+                ответа на конкретный симптом или с желания навести порядок в
+                питании — вы найдёте здесь поддержку и полезные рекомендации.
               </p>
               <p className="text-lg font-medium text-primary">
-                Подписывайтесь на обновления, читайте блог и делайте здоровье своим союзником. Ведь после 30 жизнь только начинается — и ваше тело достойно того, чтобы быть услышанным.
+                Подписывайтесь на обновления, читайте блог и делайте здоровье
+                своим союзником. Ведь после 30 жизнь только начинается — и ваше
+                тело достойно того, чтобы быть услышанным.
               </p>
             </div>
           </div>
@@ -265,24 +343,35 @@ const Index = () => {
 
             <TabsContent value="all" className="mt-8">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredArticles.map(article => (
-                  <Card key={article.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+                {filteredArticles.map((article) => (
+                  <Card
+                    key={article.id}
+                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                  >
                     <CardHeader>
                       <div className="flex justify-between items-start mb-2">
                         <Badge variant="secondary" className="text-xs">
                           {article.category}
                         </Badge>
-                        <span className="text-xs text-gray-500">{article.readTime}</span>
+                        <span className="text-xs text-gray-500">
+                          {article.readTime}
+                        </span>
                       </div>
-                      <CardTitle className="text-lg font-sans">{article.title}</CardTitle>
+                      <CardTitle className="text-lg font-sans">
+                        {article.title}
+                      </CardTitle>
                       <CardDescription className="text-sm">
                         {article.description}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="flex flex-wrap gap-1 mb-4">
-                        {article.tags.map(tag => (
-                          <Badge key={tag} variant="outline" className="text-xs">
+                        {article.tags.map((tag) => (
+                          <Badge
+                            key={tag}
+                            variant="outline"
+                            className="text-xs"
+                          >
                             {tag}
                           </Badge>
                         ))}
@@ -298,46 +387,59 @@ const Index = () => {
             </TabsContent>
 
             {/* Category-specific tabs */}
-            {['питание', 'тренировки', 'гормоны', 'советы врача'].map(category => (
-              <TabsContent key={category} value={category} className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {articles.filter(article => article.category === category).map(article => (
-                    <Card key={article.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                      <CardHeader>
-                        <div className="flex justify-between items-start mb-2">
-                          <Badge variant="secondary" className="text-xs">
-                            {article.category}
-                          </Badge>
-                          <span className="text-xs text-gray-500">{article.readTime}</span>
-                        </div>
-                        <CardTitle className="text-lg font-sans">{article.title}</CardTitle>
-                        <CardDescription className="text-sm">
-                          {article.description}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex flex-wrap gap-1 mb-4">
-                          {article.tags.map(tag => (
-                            <Badge key={tag} variant="outline" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                        <div className="flex justify-between items-center text-sm text-gray-500">
-                          <span>{article.author}</span>
-                          <span>{article.date}</span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-            ))}
+            {["питание", "тренировки", "гормоны", "советы врача"].map(
+              (category) => (
+                <TabsContent key={category} value={category} className="mt-8">
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {articles
+                      .filter((article) => article.category === category)
+                      .map((article) => (
+                        <Card
+                          key={article.id}
+                          className="hover:shadow-lg transition-shadow cursor-pointer"
+                        >
+                          <CardHeader>
+                            <div className="flex justify-between items-start mb-2">
+                              <Badge variant="secondary" className="text-xs">
+                                {article.category}
+                              </Badge>
+                              <span className="text-xs text-gray-500">
+                                {article.readTime}
+                              </span>
+                            </div>
+                            <CardTitle className="text-lg font-sans">
+                              {article.title}
+                            </CardTitle>
+                            <CardDescription className="text-sm">
+                              {article.description}
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="flex flex-wrap gap-1 mb-4">
+                              {article.tags.map((tag) => (
+                                <Badge
+                                  key={tag}
+                                  variant="outline"
+                                  className="text-xs"
+                                >
+                                  {tag}
+                                </Badge>
+                              ))}
+                            </div>
+                            <div className="flex justify-between items-center text-sm text-gray-500">
+                              <span>{article.author}</span>
+                              <span>{article.date}</span>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                  </div>
+                </TabsContent>
+              ),
+            )}
           </Tabs>
         </div>
       </section>
-
-
 
       {/* FAQ Section */}
       <section className="py-16 bg-white">
@@ -357,7 +459,10 @@ const Index = () => {
                 Как часто нужно сдавать анализы на гормоны?
               </AccordionTrigger>
               <AccordionContent>
-                Рекомендуется проверять гормональный фон 1-2 раза в год в рамках профилактического обследования. При наличии симптомов гормонального дисбаланса частота может увеличиваться по назначению врача.
+                Рекомендуется проверять гормональный фон 1-2 раза в год в рамках
+                профилактического обследования. При наличии симптомов
+                гормонального дисбаланса частота может увеличиваться по
+                назначению врача.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
@@ -365,7 +470,10 @@ const Index = () => {
                 Какие витамины особенно важны для женщин?
               </AccordionTrigger>
               <AccordionContent>
-                Ключевые витамины для женского здоровья: фолиевая кислота, витамин D, железо, кальций, витамины группы B, омега-3 жирные кислоты. Конкретные потребности зависят от возраста и физиологического состояния.
+                Ключевые витамины для женского здоровья: фолиевая кислота,
+                витамин D, железо, кальций, витамины группы B, омега-3 жирные
+                кислоты. Конкретные потребности зависят от возраста и
+                физиологического состояния.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
@@ -373,7 +481,10 @@ const Index = () => {
                 Как силовые тренировки влияют на женский организм?
               </AccordionTrigger>
               <AccordionContent>
-                Силовые тренировки улучшают плотность костей, ускоряют метаболизм, повышают мышечную массу и силу, улучшают гормональный баланс и общее самочувствие. Они безопасны и рекомендуются для женщин всех возрастов.
+                Силовые тренировки улучшают плотность костей, ускоряют
+                метаболизм, повышают мышечную массу и силу, улучшают
+                гормональный баланс и общее самочувствие. Они безопасны и
+                рекомендуются для женщин всех возрастов.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -387,7 +498,8 @@ const Index = () => {
             Будьте в курсе новостей о здоровье
           </h3>
           <p className="text-xl mb-8 text-blue-100">
-            Получайте еженедельную рассылку с полезными советами и новыми статьями
+            Получайте еженедельную рассылку с полезными советами и новыми
+            статьями
           </p>
           <div className="flex max-w-md mx-auto">
             <Input
@@ -409,7 +521,9 @@ const Index = () => {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Icon name="Stethoscope" className="h-6 w-6" />
-                <span className="text-lg font-sans font-bold">Женское Здоровье</span>
+                <span className="text-lg font-sans font-bold">
+                  Женское Здоровье
+                </span>
               </div>
               <p className="text-gray-400 text-sm">
                 Профессиональный медицинский блог для современных женщин
@@ -418,27 +532,68 @@ const Index = () => {
             <div>
               <h4 className="font-sans font-semibold mb-4">Разделы</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white">Питание</a></li>
-                <li><a href="#" className="hover:text-white">Тренировки</a></li>
-                <li><a href="#" className="hover:text-white">Гормоны</a></li>
-                <li><a href="#" className="hover:text-white">Советы врача</a></li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Питание
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Тренировки
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Гормоны
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Советы врача
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="font-sans font-semibold mb-4">Поддержка</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white">Контакты</a></li>
-                <li><a href="#" className="hover:text-white">FAQ</a></li>
-                <li><a href="#" className="hover:text-white">Конфиденциальность</a></li>
-                <li><a href="#" className="hover:text-white">Условия использования</a></li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Контакты
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Конфиденциальность
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Условия использования
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="font-sans font-semibold mb-4">Следите за нами</h4>
               <div className="flex space-x-4">
-                <Icon name="Instagram" className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
-                <Icon name="Facebook" className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
-                <Icon name="Twitter" className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
+                <Icon
+                  name="Instagram"
+                  className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
+                />
+                <Icon
+                  name="Facebook"
+                  className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
+                />
+                <Icon
+                  name="Twitter"
+                  className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
+                />
               </div>
             </div>
           </div>
