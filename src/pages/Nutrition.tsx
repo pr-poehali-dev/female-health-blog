@@ -18,13 +18,14 @@ const Nutrition = () => {
   const nutritionArticles = [
     {
       id: 1,
-      title: "Правильное питание для энергии",
-      description: "Как сбалансированное питание влияет на уровень энергии в течение дня",
-      tags: ["усталость", "энергия", "витамины"],
+      title: "Правильное питание для женщин после 30 лет",
+      description: "Что должно входить в рацион женщины после 30 лет: продукты, режим, рекомендации при гормональном сбое и усталости",
+      tags: ["питание", "гормоны", "энергия", "30+"],
       author: "Др. Анна Петрова",
       date: "15 янв 2024",
-      readTime: "5 мин",
-      image: "https://cdn.poehali.dev/files/58678ca4-0807-4c2e-8d59-5c2fd84f84ee.png"
+      readTime: "8 мин",
+      image: "https://cdn.poehali.dev/files/58678ca4-0807-4c2e-8d59-5c2fd84f84ee.png",
+      slug: "/nutrition/pravilnoe-pitanie-dlya-zhenshchin-posle-30"
     },
     {
       id: 2,
@@ -171,7 +172,8 @@ const Nutrition = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredArticles.map((article) => (
-              <Card key={article.id} className="hover:shadow-lg transition-shadow cursor-pointer group">
+              <Link key={article.id} to={article.slug || "#"}>
+                <Card className="hover:shadow-lg transition-shadow cursor-pointer group h-full">
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                   <img
                     src={article.image}
@@ -203,7 +205,8 @@ const Nutrition = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
+                </Card>
+              </Link>
             ))}
           </div>
 

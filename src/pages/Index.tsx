@@ -38,14 +38,15 @@ const Index = () => {
   const articles = [
     {
       id: 1,
-      title: "Правильное питание для энергии",
+      title: "Правильное питание для женщин после 30 лет",
       description:
-        "Как сбалансированное питание влияет на уровень энергии в течение дня",
+        "Что должно входить в рацион женщины после 30 лет: продукты, режим, рекомендации при гормональном сбое и усталости",
       category: "питание",
-      tags: ["усталость", "энергия", "витамины"],
+      tags: ["питание", "гормоны", "энергия", "30+"],
       author: "Др. Анна Петрова",
       date: "15 янв 2024",
-      readTime: "5 мин",
+      readTime: "8 мин",
+      slug: "/nutrition/pravilnoe-pitanie-dlya-zhenshchin-posle-30",
     },
     {
       id: 2,
@@ -354,44 +355,47 @@ const Index = () => {
             <TabsContent value="all" className="mt-8">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredArticles.map((article) => (
-                  <Card
+                  <Link
                     key={article.id}
-                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                    to={article.slug || "#"}
+                    className="block"
                   >
-                    <CardHeader>
-                      <div className="flex justify-between items-start mb-2">
-                        <Badge variant="secondary" className="text-xs">
-                          {article.category}
-                        </Badge>
-                        <span className="text-xs text-gray-500">
-                          {article.readTime}
-                        </span>
-                      </div>
-                      <CardTitle className="text-lg font-sans">
-                        {article.title}
-                      </CardTitle>
-                      <CardDescription className="text-sm">
-                        {article.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {article.tags.map((tag) => (
-                          <Badge
-                            key={tag}
-                            variant="outline"
-                            className="text-xs"
-                          >
-                            {tag}
+                    <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
+                      <CardHeader>
+                        <div className="flex justify-between items-start mb-2">
+                          <Badge variant="secondary" className="text-xs">
+                            {article.category}
                           </Badge>
-                        ))}
-                      </div>
-                      <div className="flex justify-between items-center text-sm text-gray-500">
-                        <span>{article.author}</span>
-                        <span>{article.date}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
+                          <span className="text-xs text-gray-500">
+                            {article.readTime}
+                          </span>
+                        </div>
+                        <CardTitle className="text-lg font-sans">
+                          {article.title}
+                        </CardTitle>
+                        <CardDescription className="text-sm">
+                          {article.description}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {article.tags.map((tag) => (
+                            <Badge
+                              key={tag}
+                              variant="outline"
+                              className="text-xs"
+                            >
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                        <div className="flex justify-between items-center text-sm text-gray-500">
+                          <span>{article.author}</span>
+                          <span>{article.date}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </TabsContent>
