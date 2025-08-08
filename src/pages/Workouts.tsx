@@ -19,6 +19,17 @@ const Workouts = () => {
   const workoutArticles = [
     {
       id: 1,
+      title: "Тренировки для женщин после 30: как не навредить гормональному фону",
+      description: "Выбирайте тренировки, которые не мешают гормональному балансу. Что подходит женщинам 30+, как снизить кортизол и не выгорать от спорта.",
+      tags: ["30+", "гормоны", "здоровье"],
+      author: "Эксперт Юлия Морозова",
+      date: "8 авг 2025",
+      readTime: "8 мин",
+      image: "https://cdn.poehali.dev/files/e2910982-f913-4fb4-a6f4-a6a768b1efb3.png",
+      link: "/workouts/trenirovki-posle-30-let-dlya-zhenshchin"
+    },
+    {
+      id: 2,
       title: "Силовые тренировки для женщин",
       description: "Безопасные и эффективные упражнения для развития мышечной силы",
       tags: ["фитнес", "сила", "мышцы"],
@@ -28,7 +39,7 @@ const Workouts = () => {
       image: "https://cdn.poehali.dev/files/c7b2b8db-10cd-4b31-a9e4-0827834d3e69.png"
     },
     {
-      id: 2,
+      id: 3,
       title: "Кардио для женского здоровья",
       description: "Как кардиотренировки влияют на сердце и гормональный фон",
       tags: ["кардио", "сердце", "выносливость"],
@@ -38,7 +49,7 @@ const Workouts = () => {
       image: "https://cdn.poehali.dev/files/c7b2b8db-10cd-4b31-a9e4-0827834d3e69.png"
     },
     {
-      id: 3,
+      id: 4,
       title: "Йога для женщин после 30",
       description: "Комплексы йоги для гибкости, баланса и внутренней гармонии",
       tags: ["йога", "гибкость", "стресс"],
@@ -48,7 +59,7 @@ const Workouts = () => {
       image: "https://cdn.poehali.dev/files/c7b2b8db-10cd-4b31-a9e4-0827834d3e69.png"
     },
     {
-      id: 4,
+      id: 5,
       title: "Тренировки при ПМС",
       description: "Какие упражнения помогают справиться с симптомами ПМС",
       tags: ["ПМС", "цикл", "самочувствие"],
@@ -58,7 +69,7 @@ const Workouts = () => {
       image: "https://cdn.poehali.dev/files/c7b2b8db-10cd-4b31-a9e4-0827834d3e69.png"
     },
     {
-      id: 5,
+      id: 6,
       title: "Домашние тренировки для занятых мам",
       description: "Эффективные 15-минутные комплексы для домашних условий",
       tags: ["дом", "быстро", "мамы"],
@@ -68,7 +79,7 @@ const Workouts = () => {
       image: "https://cdn.poehali.dev/files/c7b2b8db-10cd-4b31-a9e4-0827834d3e69.png"
     },
     {
-      id: 6,
+      id: 7,
       title: "Растяжка после тренировки",
       description: "Важность растяжки и комплексы для восстановления мышц",
       tags: ["растяжка", "восстановление", "гибкость"],
@@ -128,41 +139,51 @@ const Workouts = () => {
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredArticles.map((article) => (
-              <Card key={article.id} className="hover:shadow-lg transition-shadow cursor-pointer group">
-                <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardHeader>
-                  <CardTitle className="text-xl group-hover:text-purple-600 transition-colors">
-                    {article.title}
-                  </CardTitle>
-                  <CardDescription className="text-gray-600">
-                    {article.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {article.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
+            {filteredArticles.map((article) => {
+              const CardComponent = (
+                <Card key={article.id} className="hover:shadow-lg transition-shadow cursor-pointer group">
+                  <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>{article.author}</span>
-                    <div className="flex items-center space-x-4">
-                      <span>{article.date}</span>
-                      <span>{article.readTime}</span>
+                  <CardHeader>
+                    <CardTitle className="text-xl group-hover:text-purple-600 transition-colors">
+                      {article.title}
+                    </CardTitle>
+                    <CardDescription className="text-gray-600">
+                      {article.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {article.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                    <div className="flex items-center justify-between text-sm text-gray-500">
+                      <span>{article.author}</span>
+                      <div className="flex items-center space-x-4">
+                        <span>{article.date}</span>
+                        <span>{article.readTime}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+
+              return article.link ? (
+                <Link key={article.id} to={article.link}>
+                  {CardComponent}
+                </Link>
+              ) : (
+                CardComponent
+              );
+            })}
           </div>
 
           {filteredArticles.length === 0 && (
