@@ -169,8 +169,8 @@ const NutritionArticle = () => {
           {/* Hero Cover Image */}
           <div className="mb-6 sm:mb-8">
             <img
-              src="https://cdn.poehali.dev/files/5f14f906-dc89-4c72-aef7-c0b6c8d3f55f.png"
-              alt="Сбалансированное здоровое питание - тарелка с лососем, киноа, брокколи и шпинатом"
+              src="/img/36dfbd3a-7d0f-4660-8f0d-f10af1d0f31b.jpg"
+              alt="Женщина после 30 лет готовит здоровую еду на кухне со свежими овощами и фруктами"
               className="w-full max-w-2xl mx-auto block rounded-lg shadow-lg"
               loading="lazy"
             />
