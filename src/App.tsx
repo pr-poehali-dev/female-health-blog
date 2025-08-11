@@ -10,6 +10,7 @@ import NutritionArticle from "./pages/NutritionArticle";
 import Workouts from "./pages/Workouts";
 import WorkoutArticle from "./pages/WorkoutArticle";
 import Hormones from "./pages/Hormones";
+import HormoneBalanceArticle from "./pages/HormoneBalanceArticle";
 import DoctorAdvice from "./pages/DoctorAdvice";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/workouts" element={<Workouts />} />
           <Route path="/workouts/trenirovki-posle-30-let-dlya-zhenshchin" element={<WorkoutArticle />} />
           <Route path="/hormones" element={<Hormones />} />
+          <Route path="/hormones/gormonalny-balans-zhenshchin-posle-30" element={<HormoneBalanceArticle />} />
           <Route path="/doctor-advice" element={<DoctorAdvice />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
